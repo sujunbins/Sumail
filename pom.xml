@@ -17,6 +17,7 @@
         <module>mail-member</module>
         <module>mail-order</module>
         <module>mail-product</module>
+        <module>renren-fast</module>
     </modules>
 
 
