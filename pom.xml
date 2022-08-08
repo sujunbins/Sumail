@@ -18,6 +18,8 @@
         <module>mail-order</module>
         <module>mail-product</module>
         <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>mail-commom</module>
     </modules>
 
 

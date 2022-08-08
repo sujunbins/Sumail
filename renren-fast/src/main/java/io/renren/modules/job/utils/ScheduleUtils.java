@@ -49,29 +49,29 @@ public class ScheduleUtils {
     /**
      * 创建定时任务
      */
-    public static void createScheduleJob(Scheduler scheduler, ScheduleJobEntity scheduleJob) {
-        try {
-        	//构建job信息
-            JobDetail jobDetail = JobBuilder.newJob(ScheduleJob.class).withIdentity(getJobKey(scheduleJob.getJobId())).build();
+            public static void createScheduleJob(Scheduler scheduler, ScheduleJobEntity scheduleJob) {
+                try {
+                    //构建job信息
+                    JobDetail jobDetail = JobBuilder.newJob(ScheduleJob.class).withIdentity(getJobKey(scheduleJob.getJobId())).build();
 
-            //表达式调度构建器
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
-            		.withMisfireHandlingInstructionDoNothing();
+                    //表达式调度构建器
+                    CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
+                            .withMisfireHandlingInstructionDoNothing();
 
-            //按新的cronExpression表达式构建一个新的trigger
-            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(scheduleJob.getJobId())).withSchedule(scheduleBuilder).build();
+                    //按新的cronExpression表达式构建一个新的trigger
+                    CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(scheduleJob.getJobId())).withSchedule(scheduleBuilder).build();
 
-            //放入参数，运行时的方法可以获取
-            jobDetail.getJobDataMap().put(ScheduleJobEntity.JOB_PARAM_KEY, scheduleJob);
+                    //放入参数，运行时的方法可以获取
+                    jobDetail.getJobDataMap().put(ScheduleJobEntity.JOB_PARAM_KEY, scheduleJob);
 
-            scheduler.scheduleJob(jobDetail, trigger);
-            
-            //暂停任务
-            if(scheduleJob.getStatus() == Constant.ScheduleStatus.PAUSE.getValue()){
-            	pauseJob(scheduler, scheduleJob.getJobId());
-            }
-        } catch (SchedulerException e) {
-            throw new RRException("创建定时任务失败", e);
+                    scheduler.scheduleJob(jobDetail, trigger);
+
+                    //暂停任务
+                    if(scheduleJob.getStatus() == Constant.ScheduleStatus.PAUSE.getValue()){
+                        pauseJob(scheduler, scheduleJob.getJobId());
+                    }
+                } catch (SchedulerException e) {
+                    throw new RRException("创建定时任务失败", e);
         }
     }
     
