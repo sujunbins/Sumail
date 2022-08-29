@@ -3,7 +3,10 @@ package com.junbin.mail.mailproduct.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.junbin.common.validator.group.AddGroup;
+import com.junbin.common.validator.group.UpdateGroup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import com.junbin.mail.mailproduct.service.BrandService;
 import com.junbin.common.utils.PageUtils;
 import com.junbin.common.utils.R;
 
+import javax.validation.Valid;
 
 
 /**
@@ -58,8 +62,9 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("mailproduct:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public R save(@Validated(AddGroup.class) @RequestBody BrandEntity brand){
 		brandService.save(brand);
+
 
         return R.ok();
     }
@@ -69,8 +74,21 @@ public class BrandController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("mailproduct:brand:update")
-    public R update(@RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+    public R update(@Validated(UpdateGroup.class) @RequestBody BrandEntity brand){
+
+
+        brandService.updateDetail(brand);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改状态
+     */
+    @RequestMapping("/update/status")
+    //@RequiresPermissions("mailproduct:brand:update")
+    public R updatestatus(@Validated @RequestBody BrandEntity brand){
+        brandService.updateById(brand);
 
         return R.ok();
     }

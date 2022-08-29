@@ -2,8 +2,10 @@ package com.junbin.mail.mailproduct.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.junbin.common.utils.PageUtils;
+import com.junbin.mail.mailproduct.DTO.SkuItemVo;
 import com.junbin.mail.mailproduct.entity.SkuInfoEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,5 +18,13 @@ import java.util.Map;
 public interface SkuInfoService extends IService<SkuInfoEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void saveSkuInfo(SkuInfoEntity skuInfoEntity);
+
+    PageUtils queryPageCondition(Map<String, Object> params);
+
+    List<SkuInfoEntity> getSkusBySpuId(Long spuId);
+
+    SkuItemVo item(Long skuId);
 }
 

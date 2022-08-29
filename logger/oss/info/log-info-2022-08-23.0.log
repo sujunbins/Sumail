@@ -1,0 +1,3 @@
+2022-08-23 06:54:33 |INFO  |http-nio-8120-exec-1 |DirectJDKLog.java:173 |org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] |Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-23 06:54:33 |INFO  |http-nio-8120-exec-1 |FrameworkServlet.java:525 |org.springframework.web.servlet.DispatcherServlet |Initializing Servlet 'dispatcherServlet'
+2022-08-23 06:54:34 |INFO  |http-nio-8120-exec-1 |FrameworkServlet.java:547 |org.springframework.web.servlet.DispatcherServlet |Completed initialization in 12 ms

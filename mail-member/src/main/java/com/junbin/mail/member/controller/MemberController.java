@@ -3,6 +3,7 @@ package com.junbin.mail.member.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.junbin.mail.member.OpenFeign.CouponFeignServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,17 @@ import com.junbin.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private CouponFeignServer couponFeignServer;
+
+    @RequestMapping("/getcoupon")
+    //@RequiresPermissions("member:member:list")
+    public R getcoupon(){
+
+        return couponFeignServer.getCoupon();
+    }
+
 
     /**
      * 列表

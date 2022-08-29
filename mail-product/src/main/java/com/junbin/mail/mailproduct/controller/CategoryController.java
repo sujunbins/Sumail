@@ -1,6 +1,7 @@
 package com.junbin.mail.mailproduct.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +34,12 @@ public class CategoryController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @RequestMapping("/list/tree")
     //@RequiresPermissions("mailproduct:category:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
+    public R list(){
+        List<CategoryEntity> list = categoryService.listwithtree();
 
-        return R.ok().put("page", page);
+        return R.ok().put("data", list);
     }
 
 
@@ -70,7 +71,7 @@ public class CategoryController {
     @RequestMapping("/update")
     //@RequiresPermissions("mailproduct:category:update")
     public R update(@RequestBody CategoryEntity category){
-		categoryService.updateById(category);
+		categoryService.updateDetail(category);
 
         return R.ok();
     }

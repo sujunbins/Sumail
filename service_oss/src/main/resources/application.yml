@@ -1,0 +1,26 @@
+#server:
+#  port: 8120 #服务端口
+#
+#spring:
+#  profiles:
+#    active: dev #环境设置
+#  application:
+#    name: service-oss #服务名
+#
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.171.145:8848 #nacos服务地址
+#  redis:
+#    host: 192.168.171.147
+#    port: 6379
+#    database: 0
+#    password: 123456 #默认为空
+#
+#aliyun:
+#  oss:
+#    endpoint: oss-cn-shenzhen.aliyuncs.com
+#    keyid: LTAI4GDWPPaMNUYz57Hy9aBk
+#    keysecret:  jc6GwBpPklmzFtylqP5bJsoRAtKHXp
+#    #bucket可以在控制台创建，也可以使用java代码创建，注意先测试bucket是否已被占用
+#    bucketname: education-online666.oss-cn-shenzhen.aliyuncs.com

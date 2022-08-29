@@ -1,14 +1,16 @@
 package com.junbin.mail.mailproduct.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.junbin.mail.mailproduct.DTO.BrandVo;
+import com.junbin.mail.mailproduct.entity.BrandEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.junbin.mail.mailproduct.entity.CategoryBrandRelationEntity;
 import com.junbin.mail.mailproduct.service.CategoryBrandRelationService;
@@ -43,6 +45,38 @@ public class CategoryBrandRelationController {
 
 
     /**
+     * 获取当前品牌关联的列表
+     */
+    @GetMapping("/catelog/list")
+    //@RequiresPermissions("mailproduct:categorybrandrelation:list")
+    public R cateloglist(@RequestParam("brandId") Long brandId){
+        List<CategoryBrandRelationEntity> list = categoryBrandRelationService.list(
+                new QueryWrapper<CategoryBrandRelationEntity>().eq("brand_id", brandId));
+        return R.ok().put("data", list);
+    }
+
+
+
+    /**
+     * 获取当前分類关联的品牌列表
+     */
+    @GetMapping("/brands/list")
+    //@RequiresPermissions("mailproduct:categorybrandrelation:list")
+    public R brandlist(@RequestParam("catId") Long catId){
+
+        List<BrandEntity> list = categoryBrandRelationService.getbrandlist(catId);
+        List<BrandVo> collect = list.stream().map(item -> {
+            BrandVo vo = new BrandVo();
+            vo.setBrandId(item.getBrandId());
+            vo.setBrandName(item.getName());
+            return vo;
+        }).collect(Collectors.toList());
+
+        return R.ok().put("data", collect);
+    }
+
+
+    /**
      * 信息
      */
     @RequestMapping("/info/{id}")
@@ -59,7 +93,7 @@ public class CategoryBrandRelationController {
     @RequestMapping("/save")
     //@RequiresPermissions("mailproduct:categorybrandrelation:save")
     public R save(@RequestBody CategoryBrandRelationEntity categoryBrandRelation){
-		categoryBrandRelationService.save(categoryBrandRelation);
+		categoryBrandRelationService.saveDetail(categoryBrandRelation);
 
         return R.ok();
     }
